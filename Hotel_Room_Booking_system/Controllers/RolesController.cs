@@ -70,12 +70,12 @@ namespace Hotel_Room_Booking_system.Controllers
                 return NotFound("Role not found.");
 
             //Check if user exists
-            var UserCheck =await _uow.AccountRepo.ExistsByEmailAsync(e=>e.Email==UserEmail);
+            var UserCheck =await _uow.AccountRepo.ExistsAsync(e=>e.Email==UserEmail);
             if(!UserCheck)
                 return NotFound("User not found.");
 
             //Check if user already in role
-            var user = await _uow.AccountRepo.GetByEmailAsync(e => e.Email == UserEmail);
+            var user = await _uow.AccountRepo.GetByMatchingAsync(e => e.Email == UserEmail);
             var roleExists = await userManager.GetRolesAsync(user);
             if (roleExists.Contains(NewRole))
                 return BadRequest("User already in role.");

@@ -8,7 +8,7 @@
         public DbSet<Room> Rooms { get; set; }
         public DbSet<SeasonalPrice> SeasonalPrices { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        //public DbSet<Payment> Payments { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

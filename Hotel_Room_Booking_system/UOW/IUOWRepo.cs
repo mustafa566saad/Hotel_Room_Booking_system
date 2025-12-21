@@ -6,6 +6,8 @@ namespace Hotel_Room_Booking_system.UOW
         IAccountRepo AccountRepo { get; }
         IRoomRepo RoomRepo { get; }
         IBookingRepo BookingRepo { get; }
+        IReviewRepo ReviewRepo { get; }
+
         Task<int> SaveAsync();
     }
 }

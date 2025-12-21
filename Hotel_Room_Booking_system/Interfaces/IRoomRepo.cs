@@ -8,7 +8,7 @@
         public Task<List<ReturmedRoomsDTO>> GetRoomsByPriceRangeAsync(double minPrice, double maxPrice);
         public Task<List<ReturmedRoomsDTO>> GetRoomsByCapacityAsync(int capacity);
         public Task AddRoomAsync(RoomDTO dTO);
-        public Task<(bool isSeason, double Percentage)> CheckSeasonAsync(DateTime checkIn, DateTime checkOut);
+        public Task<List<ReturmedRoomsDTO>> CalculateSeasonPercantge(List<Room> room, DateTime checkIn, DateTime checkOut);
 
     }
 }

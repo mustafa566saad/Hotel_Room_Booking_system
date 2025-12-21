@@ -14,7 +14,7 @@
 
         public async Task<AuthUserDTO> LoginAsync(LoginDTO DTO)
         {
-            var user = await _UOWRepo.AccountRepo.GetByEmailAsync(u => u.Email == DTO.Email);
+            var user = await _UOWRepo.AccountRepo.GetByMatchingAsync(u => u.Email == DTO.Email);
             var token = GetJWTTokenAsync(user);
             AuthUserDTO authUser = new AuthUserDTO()
             {

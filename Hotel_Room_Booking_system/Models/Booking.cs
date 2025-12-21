@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Hotel_Room_Booking_system.Models
 {
@@ -10,11 +11,13 @@ namespace Hotel_Room_Booking_system.Models
 
         [ForeignKey("User")]
         public string UserId { get; set; }
+        [JsonIgnore]
         public ApplicationUser User { get; set; }
 
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }
+        [JsonIgnore]
         public Room Room { get; set; }
 
 
@@ -31,7 +34,6 @@ namespace Hotel_Room_Booking_system.Models
         [StringLength(20)]
         public string Status { get; set; } = BookingStatus.Pending.ToString();
 
-        public string PaymentMethod { get; set; }= paymentMethod.Cash.ToString();
-        public Review? Review { get; set; }
+        public string PaymentMethod { get; set; }
     }
 }

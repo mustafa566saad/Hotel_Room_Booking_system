@@ -8,8 +8,8 @@ namespace Hotel_Room_Booking_system.Interfaces
         public Task<T> GetByIdAsync(int id);
         public Task<bool> CreateAsync(T entity);
         public Task UpdateAsync(T entity);
-        public bool DeleteAsync(T entity);
-        public Task<bool> ExistsByEmailAsync(Expression<Func<T, bool>> Createria);
-        public  Task<T> GetByEmailAsync(Expression<Func<T, bool>> Createria);
+        public bool Delete(T entity);
+        public Task<bool> ExistsAsync(Expression<Func<T, bool>> Createria);
+        public  Task<T> GetByMatchingAsync(Expression<Func<T, bool>> Createria);
     }
 }

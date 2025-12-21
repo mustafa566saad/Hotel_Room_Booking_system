@@ -4,5 +4,9 @@
     {
         public Task<List<Booking>> GetBookingsByUserEmailAsync(string Email);
         public Task<List<Booking>> GetAllBookingAsync();
+        public Task RoomBoking(BookingDTO dTO);
+        public Task<bool> DeclineBooking(int bookingID);
+
+
     }
 }

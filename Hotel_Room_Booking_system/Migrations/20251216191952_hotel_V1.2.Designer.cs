@@ -4,6 +4,7 @@ using Hotel_Room_Booking_system.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel_Room_Booking_system.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20251216191952_hotel_V1.2")]
+    partial class hotel_V12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,14 +152,14 @@ namespace Hotel_Room_Booking_system.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -165,7 +168,8 @@ namespace Hotel_Room_Booking_system.Migrations
 
                     b.HasKey("ReviewId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("BookingId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -395,9 +399,9 @@ namespace Hotel_Room_Booking_system.Migrations
 
             modelBuilder.Entity("Hotel_Room_Booking_system.Models.Review", b =>
                 {
-                    b.HasOne("Hotel_Room_Booking_system.Models.Room", "Room")
-                        .WithMany("Reviews")
-                        .HasForeignKey("RoomId")
+                    b.HasOne("Hotel_Room_Booking_system.Models.Booking", "Booking")
+                        .WithOne("Review")
+                        .HasForeignKey("Hotel_Room_Booking_system.Models.Review", "BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -407,7 +411,7 @@ namespace Hotel_Room_Booking_system.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Room");
+                    b.Navigation("Booking");
 
                     b.Navigation("User");
                 });
@@ -470,11 +474,14 @@ namespace Hotel_Room_Booking_system.Migrations
                     b.Navigation("Reviews");
                 });
 
+            modelBuilder.Entity("Hotel_Room_Booking_system.Models.Booking", b =>
+                {
+                    b.Navigation("Review");
+                });
+
             modelBuilder.Entity("Hotel_Room_Booking_system.Models.Room", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

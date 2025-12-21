@@ -28,6 +28,7 @@ builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<IRoomRepo, RoomRepo>();
 builder.Services.AddScoped<IBookingRepo, BookingRepo>();
+builder.Services.AddScoped<IReviewRepo, ReviewRepo>();
 #endregion
 
 var app = builder.Build();
@@ -52,7 +53,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseResponseCompression();
 app.UseAuthentication();
 app.UseAuthorization();
 

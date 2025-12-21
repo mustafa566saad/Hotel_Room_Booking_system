@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using Hotel_Room_Booking_system.DTOs;
-
-namespace Hotel_Room_Booking_system.Mapping
+﻿namespace Hotel_Room_Booking_system.Mapping
 {
     public class MappingProfile:Profile
     {
@@ -14,6 +11,9 @@ namespace Hotel_Room_Booking_system.Mapping
 
             CreateMap<Room, ReturmedRoomsDTO>()
                 .ForMember(dest => dest.PricePerDay, opt => opt.MapFrom(src => src.BasePrice));
+
+            CreateMap<BookingDTO, Booking>();
+            CreateMap<ReviewDTO, Review>();
 
         }
     }

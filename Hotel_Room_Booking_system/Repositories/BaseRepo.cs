@@ -1,5 +1,4 @@
 ﻿
-
 namespace Hotel_Room_Booking_system.Repositories
 {
     public class BaseRepo<T> : IBaseRepo<T> where T : class
@@ -16,20 +15,19 @@ namespace Hotel_Room_Booking_system.Repositories
            return result.State == EntityState.Added;
         }
 
-        public bool DeleteAsync(T entity)
+        public bool Delete(T entity)
         {
              var result= _hotelContext.Set<T>().Remove(entity);
              return result.State == EntityState.Deleted;
         }
 
-        public async Task<bool> ExistsByEmailAsync(Expression<Func<T, bool>> Createria) => await _hotelContext.Set<T>().AnyAsync(Createria);
-
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> Createria) => await _hotelContext.Set<T>().AnyAsync(Createria);
 
         public async Task<List<T>> GetAllAsync() => await _hotelContext.Set<T>().ToListAsync();
 
         public async Task<T> GetByIdAsync(int id)=> await _hotelContext.Set<T>().FindAsync(id);
 
-        public async Task<T> GetByEmailAsync(Expression<Func<T, bool>> Createria) => await _hotelContext.Set<T>().FirstOrDefaultAsync(Createria);
+        public async Task<T> GetByMatchingAsync(Expression<Func<T, bool>> expression) => await _hotelContext.Set<T>().FirstOrDefaultAsync(expression);
 
         public async Task UpdateAsync(T entity) => _hotelContext.Set<T>().Update(entity);
     }

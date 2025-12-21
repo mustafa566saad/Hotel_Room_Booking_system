@@ -10,14 +10,14 @@ namespace Hotel_Room_Booking_system.Repositories
 
         public RoomRepo(HotelContext hotelContext, IMapper mapper) : base(hotelContext)
         {
-            _context = hotelContext;
             _mapper = mapper;
+            _context = hotelContext;    
         }
         public async Task<List<ReturmedRoomsDTO>> GetAvailableRoomsAsync(DateTime checkIn, DateTime checkOut)
         {
             // Get room IDs that are booked during the specified date range
             var bookedRoomIds = await _context.Bookings
-                .Where(b => b.CheckIn < checkOut && b.CheckOut > checkIn && b.Status == RoomStatus.Available.ToString())
+                .Where(b => b.CheckIn < checkOut && b.CheckOut > checkIn && b.Status == RoomStatus.Available.ToString()&&b.Status==RoomStatus.Available.ToString())
                 .Select(b => b.RoomId)
                 .ToListAsync();
 
@@ -30,9 +30,9 @@ namespace Hotel_Room_Booking_system.Repositories
 
         public async Task<List<ReturmedRoomsDTO>> GetAllRoomsAsync()
         {
-            var oldRrooms = await _context.Rooms.ToListAsync();
+            var oldRrooms = await GetAllAsync();
 
-            var rooms= await CalculateSeasonPercantge(oldRrooms, DateTime.Now, DateTime.Now.AddDays(1));
+            var rooms = await CalculateSeasonPercantge(oldRrooms, DateTime.Now, DateTime.Now.AddDays(1));
 
             return rooms;
         }
@@ -60,7 +60,7 @@ namespace Hotel_Room_Booking_system.Repositories
         public async Task AddRoomAsync(RoomDTO dTO)
         {
             var room = _mapper.Map<Room>(dTO);
-            await _context.Rooms.AddAsync(room);
+            await CreateAsync(room);
         }
 
         public async Task<(bool isSeason,double Percentage)> CheckSeasonAsync(DateTime checkIn, DateTime checkOut) {

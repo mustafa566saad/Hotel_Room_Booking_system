@@ -8,9 +8,9 @@ namespace Hotel_Room_Booking_system.Models
         [Key]
         public int ReviewId { get; set; }
 
-        [ForeignKey("Booking")]
-        public int BookingId { get; set; }
-        public Booking Booking { get; set; }
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
+        public Room Room { get; set; }
 
 
         [ForeignKey("User")]

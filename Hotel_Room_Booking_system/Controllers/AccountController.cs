@@ -23,11 +23,11 @@ namespace Hotel_Room_Booking_system.Controllers
                 return BadRequest(ModelState);
 
             //Email Existence Check
-            var EmailCheck = await _uow.AccountRepo.ExistsByEmailAsync(e => e.Email == DTO.Email);
+            var EmailCheck = await _uow.AccountRepo.ExistsAsync(e => e.Email == DTO.Email);
             if (!EmailCheck)
                 return NotFound("User or email not correct");
 
-            var user = await _uow.AccountRepo.GetByEmailAsync(e => e.Email == DTO.Email);
+            var user = await _uow.AccountRepo.GetByMatchingAsync(e => e.Email == DTO.Email);
 
             //Password Check
             var PassCheck = await _uow.AccountRepo.CheckPassword(user, DTO.Password);
@@ -46,7 +46,7 @@ namespace Hotel_Room_Booking_system.Controllers
                 return BadRequest(ModelState);
 
             //Email Existence Check
-            var EmailCheck = await _uow.AccountRepo.ExistsByEmailAsync(e => e.Email == DTO.Email);
+            var EmailCheck = await _uow.AccountRepo.ExistsAsync(e => e.Email == DTO.Email);
             if (EmailCheck)
                 return BadRequest("Email already exists");
 
@@ -75,7 +75,7 @@ namespace Hotel_Room_Booking_system.Controllers
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var userExists = await _uow.AccountRepo.ExistsByEmailAsync(u => u.Email == email);
+            var userExists = await _uow.AccountRepo.ExistsAsync(u => u.Email == email);
             if (!userExists)
                 return NotFound("User not found");
             await _uow.AccountRepo.DeleteUser(email);

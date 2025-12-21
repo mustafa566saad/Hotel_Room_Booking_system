@@ -18,5 +18,6 @@
         
         public ICollection<string>? ImagesURLs { get; set; }
         public ICollection<Booking>? Bookings { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
     }
 }
