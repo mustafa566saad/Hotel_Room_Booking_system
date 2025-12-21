@@ -4,7 +4,6 @@ namespace Hotel_Room_Booking_system.DTOs
 {
     public class BookingDTO
     {
-
         public string UserEmail { get; set; }
         public int RoomId { get; set; }
 

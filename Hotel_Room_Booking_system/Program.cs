@@ -18,6 +18,8 @@ builder.Services.AddDbContext<HotelContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<HotelContext>();
+builder.Services.AddResponseCompression();
+
 
 #region Scoped Repos
 builder.Services.AddScoped<IUOWRepo, UOWRepo>();
@@ -34,7 +36,6 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
